@@ -56,21 +56,23 @@ def LogoutPage(request):
     return redirect('LoginPage')
 
 
-def index(request):
-    product_objects = Product.objects.all()
+def index(request):  # Defines the `index` view function, which handles HTTP requests.
+    product_objects = Product.objects.all()  # Retrieves all Product objects from the database.
 
     # search code
-    # code file
-    item_name = request.GET.get('item_name')
-    if item_name != '' and item_name is not None:
+    # Extracts the 'item_name' parameter from the GET request, used for filtering products.
+    item_name = request.GET.get('item_name')  
+    if item_name != '' and item_name is not None:  # Checks if 'item_name' is not empty or None.
+        # Filters the product objects by checking if 'item_name' is contained in the 'category' field.
         product_objects = product_objects.filter(category__icontains=item_name)
 
     # paginator code
-    paginator = Paginator(product_objects, 8)
-    page = request.GET.get("page")
-    product_objects = paginator.get_page(page)
+    paginator = Paginator(product_objects, 8)  # Creates a paginator object to divide the product list into pages, 8 items per page.
+    page = request.GET.get("page")  # Gets the current page number from the GET request.
+    product_objects = paginator.get_page(page)  # Retrieves the products for the specified page.
 
-    return render(request, 'shop/index.html', {'product_objects': product_objects})
+    # Renders the 'shop/index.html' template, passing the paginated product objects as context.
+    return render(request, 'shop/index.html', {'product_objects': product_objects})  
 
 
 def detail(request, id):

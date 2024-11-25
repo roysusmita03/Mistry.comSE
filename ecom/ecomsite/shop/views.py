@@ -88,21 +88,21 @@ def training(request):
     return render(request, 'shop/training.html')
 
 
-def checkout(request):
-    if request.method == "POST":
-        items = request.POST.get('items', '')
-        name = request.POST.get('name', "")
-        email = request.POST.get('email', "")
-        address = request.POST.get('address', "")
-        city = request.POST.get('city', "")
-        state = request.POST.get('state', "")
-        zipcode = request.POST.get('zipcode', "")
-        total = request.POST.get('total', "")
-        order = Order(items=items, name=name, email=email, address=address, city=city, state=state, zipcode=zipcode,
+def checkout(request):  # Defines the checkout view function to handle HTTP requests for the checkout process.
+    if request.method == "POST":  # Checks if the request method is POST, indicating a form submission.
+        items = request.POST.get('items', '')  # Retrieves the 'items' value from the POST request, defaulting to an empty string if not provided.
+        name = request.POST.get('name', "")  # Retrieves the 'name' value from the POST request, defaulting to an empty string if not provided.
+        email = request.POST.get('email', "")  # Retrieves the 'email' value from the POST request, defaulting to an empty string if not provided.
+        address = request.POST.get('address', "")  # Retrieves the 'address' value from the POST request, defaulting to an empty string if not provided.
+        city = request.POST.get('city', "")  # Retrieves the 'city' value from the POST request, defaulting to an empty string if not provided.
+        state = request.POST.get('state', "")  # Retrieves the 'state' value from the POST request, defaulting to an empty string if not provided.
+        zipcode = request.POST.get('zipcode', "")  # Retrieves the 'zipcode' value from the POST request, defaulting to an empty string if not provided.
+        total = request.POST.get('total', "")  # Retrieves the 'total' value from the POST request, defaulting to an empty string if not provided.
+        order = Order(items=items, name=name, email=email, address=address, city=city, state=state, zipcode=zipcode,  # Creates an Order object with the retrieved data.
                       total=total)
-        order.save()
+        order.save()  # Saves the Order object to the database.
 
-    return render(request, 'shop/checkout.html')
+    return render(request, 'shop/checkout.html')  # Renders the checkout.html template to display the checkout page.
 
 
 from django.shortcuts import redirect, get_object_or_404
